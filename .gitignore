@@ -1,0 +1,12 @@
+backend/.DS_Store
+.DS_Store
+frontend
+backend/.env
+.env
+backend/node_modules
+node_modules
+backend/public/temp
+.DS_Store
+backend/src/controllers/sales/bill.controllers.js
+backend/src/controllers/sales/salesSummary.controller.js
+backend/src/models/sales/bill.modles.js
