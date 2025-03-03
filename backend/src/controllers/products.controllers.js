@@ -4,7 +4,10 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { Product } from "../models/products.models.js";
 import mongoose from "mongoose";
 import { User } from "../models/user.models.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {
+  deleteFromCloudinary,
+  uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 
 const getAllProducts = asyncHandler(async (req, res) => {
   const products = await Product.find();
@@ -85,6 +88,22 @@ const authDeleteProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(productId);
   if (!product) {
     throw new ApiError(404, "Product not found or already deleted");
+  }
+
+  // Delete images from Cloudinary
+  try {
+    await Promise.all(
+      product.image.map(
+        async (imageUrl) => await deleteFromCloudinary(imageUrl)
+      )
+    );
+    // console.log("All product images deleted from Cloudinary");
+  } catch (error) {
+    console.error("Failed to delete images from Cloudinary:", error);
+    throw new ApiError(
+      500,
+      "Error while deleting product images from Cloudinary"
+    );
   }
 
   const deletedProduct = await Product.findByIdAndDelete(productId);
@@ -251,7 +270,8 @@ const authAddProduct = asyncHandler(async (req, res) => {
     imageUrls = cloudinaryResponses
       .filter((res) => {
         // console.log('cloudinary response is ', res)
-        return res}) // Remove failed uploads (null responses)
+        return res;
+      }) // Remove failed uploads (null responses)
       .map((res) => res.secure_url);
 
     // console.log("Uploaded Images:", imageUrls);
@@ -301,6 +321,24 @@ const deleteAllProducts = asyncHandler(async (req, res) => {
   // Ensure the user is an admin
   if (!req.user || req.user.role !== "admin") {
     throw new ApiError(403, "Unauthorized: Only admins can delete products");
+  }
+
+  // Fetch all products
+  const products = await Product.find({});
+  if (products.length === 0) {
+    throw new ApiError(400, "No products are there to delete");
+  }
+
+  // Extract all Cloudinary image URLs
+  const allImageUrls = products.flatMap((product) => product.image);
+
+  // Delete images from Cloudinary using utility function
+  try {
+    await Promise.all(allImageUrls.map(async (imageUrl) => await deleteFromCloudinary(imageUrl)));
+    // console.log("All product images deleted from Cloudinary");
+  } catch (error) {
+    console.error("Failed to delete images from Cloudinary:", error);
+    throw new ApiError(500, "Error while deleting product images from Cloudinary");
   }
 
   const deleted = await Product.deleteMany({});
