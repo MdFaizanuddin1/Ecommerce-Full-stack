@@ -1,9 +1,18 @@
 import { Outlet } from "react-router-dom";
-
+import Navbar from "./components/Navbar";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getCurrentUser } from "./redux/userSlice";
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   return (
     <div>
-      <div className=" text-3xl text-red-800">Hello</div>
+      <Navbar />
       <Outlet />
     </div>
   );
