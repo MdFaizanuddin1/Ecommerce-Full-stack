@@ -1,6 +1,6 @@
-import React from 'react'
-import ProductPage from './ProductPage'
-import HeroSection from './HeroSection'
+import React from "react";
+import ProductPage from "../products pages/ProductPage";
+import HeroSection from "./HeroSection";
 
 function HomePage() {
   return (
@@ -8,7 +8,7 @@ function HomePage() {
       <HeroSection />
       <ProductPage />
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

@@ -17,6 +17,7 @@ import { store } from "./app/store.js";
 import Signup from "./components/auth/SignUp.jsx";
 import Login from "./components/auth/Login.jsx";
 import HomePage from "./components/pages/HomePage.jsx";
+import ProductWithId from "./components/products pages/productWithId.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,9 @@ const router = createBrowserRouter(
       <Route path="" element={<HomePage />} />
       <Route path="signup" element={<Signup />} />
       <Route path="login" element={<Login />} />
+
+      {/* product pages */}
+      <Route path="product/:id" element={<ProductWithId />} />
     </Route>
   )
 );
