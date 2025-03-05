@@ -21,8 +21,12 @@ export const register = createAsyncThunk(
       // console.log("response is", response);
       return response.data;
     } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error.response.data.errors);
+      console.log(error.response.data);
+      //   return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue({
+        message: error?.response?.data?.message || "register failed",
+        errors: error?.response?.data?.errors || [],
+      });
     }
   }
 );
@@ -36,8 +40,12 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     // console.log("response is", response);
     return response.data;
   } catch (error) {
-    console.log(error);
-    return thunkAPI.rejectWithValue(error.response.data.errors);
+    console.log(error.response.data);
+    // return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue({
+      message: error?.response?.data?.message || "Login failed",
+      errors: error?.response?.data?.errors || [],
+    });
   }
 });
 
@@ -53,8 +61,12 @@ export const getCurrentUser = createAsyncThunk(
       // console.log("response is", response);
       return response.data;
     } catch (error) {
-      // console.log(error);
-      return thunkAPI.rejectWithValue(error.response.data.errors);
+      console.log(error.response.data);
+      //   return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue({
+        message: error?.response?.data?.message || "get current user failed",
+        errors: error?.response?.data?.errors || [],
+      });
     }
   }
 );
@@ -69,8 +81,12 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    return thunkAPI.rejectWithValue(error.response.data.errors);
+    console.log(error.response.data);
+    // return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue({
+      message: error?.response?.data?.message || "Logout failed",
+      errors: error?.response?.data?.errors || [],
+    });
   }
 });
 
@@ -82,30 +98,35 @@ export const userSlice = createSlice({
     builder
       .addCase(register.pending, (state) => {
         state.loading = true;
+        state.error = null; // ✅ Reset error before making a request
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(register.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.payload?.message || "Something went wrong"; // ✅ Store error message
       })
 
       // for login
       .addCase(login.pending, (state) => {
         state.loading = true;
+        state.error = null; // ✅ Reset error before making a request
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(login.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.payload?.message || "Something went wrong"; // ✅ Store error message
       })
 
       // get current user
       .addCase(getCurrentUser.pending, (state) => {
         state.loading = true;
+        state.error = null; // ✅ Reset error before making a request
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -120,6 +141,10 @@ export const userSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.loading = false;
         state.currentUser = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Logout failed";
       });
   },
   reducers: {},

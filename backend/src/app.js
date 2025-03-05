@@ -35,6 +35,7 @@ import categoryRouter from "./routes/category.routes.js";
 // import salesSummaryRouter from "./routes/sales/salesSummary.routes.js";
 
 import inventoryRouter from "./routes/inventory.routes.js";
+import { ApiError } from "./utils/apiError.js";
 
 // routes
 // healthCheck route
@@ -64,5 +65,24 @@ app.use("/api/v1/inventory", inventoryRouter);
 
 // --------- summary
 // app.use("/api/v1/report", salesSummaryRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log for debugging
+
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+      errors: err.errors || [],
+      // stack: process.env.NODE_ENV === "development" ?err.stack : undefined
+      stack: err.stack,
+    });
+  }
+
+  return res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+  });
+});
 
 export { app };
