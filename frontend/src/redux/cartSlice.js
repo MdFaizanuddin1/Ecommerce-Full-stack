@@ -117,10 +117,20 @@ const cartSlice = createSlice({
         state.cartItems = action.payload.data.items;
         state.totalPrice = action.payload.data.totalPrice;
       })
+      // .addCase(removeCartItem.fulfilled, (state, action) => {
+      //   // ✅ Ensure the removed item is gone immediately
+      //   state.cartItems = action.payload.data.items;
+      //   state.totalPrice = action.payload.data.totalPrice;
+      // })
       .addCase(removeCartItem.fulfilled, (state, action) => {
-        // ✅ Ensure the removed item is gone immediately
-        state.cartItems = action.payload.data.items;
-        state.totalPrice = action.payload.data.totalPrice;
+        if (action.payload.data === null) {
+          // If cart is deleted (last item removed), reset state
+          state.cartItems = [];
+          state.totalPrice = 0;
+        } else {
+          state.cartItems = action.payload.data.items;
+          state.totalPrice = action.payload.data.totalPrice;
+        }
       })
       .addCase(clearCart.fulfilled, (state) => {
         state.cartItems = [];

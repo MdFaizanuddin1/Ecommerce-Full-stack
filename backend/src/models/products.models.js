@@ -25,6 +25,7 @@ const ProductSchema = new Schema(
     bestseller: {
       type: Boolean,
       default: false,
+      index: true,
     },
     description: {
       type: String,
@@ -40,6 +41,7 @@ const ProductSchema = new Schema(
     },
     gender: {
       type: String,
+      index: true,
 
       required: true,
     },
@@ -76,12 +78,12 @@ const ProductSchema = new Schema(
     //   type: mongoose.Schema.Types.ObjectId,
     //   ref: "User",
     // },
-    reviews : [
+    reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
       },
-    ]
+    ],
   },
   {
     timestamps: true,

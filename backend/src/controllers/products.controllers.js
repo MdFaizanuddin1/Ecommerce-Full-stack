@@ -334,11 +334,16 @@ const deleteAllProducts = asyncHandler(async (req, res) => {
 
   // Delete images from Cloudinary using utility function
   try {
-    await Promise.all(allImageUrls.map(async (imageUrl) => await deleteFromCloudinary(imageUrl)));
+    await Promise.all(
+      allImageUrls.map(async (imageUrl) => await deleteFromCloudinary(imageUrl))
+    );
     // console.log("All product images deleted from Cloudinary");
   } catch (error) {
     console.error("Failed to delete images from Cloudinary:", error);
-    throw new ApiError(500, "Error while deleting product images from Cloudinary");
+    throw new ApiError(
+      500,
+      "Error while deleting product images from Cloudinary"
+    );
   }
 
   const deleted = await Product.deleteMany({});
@@ -358,6 +363,28 @@ const deleteAllProducts = asyncHandler(async (req, res) => {
     );
 });
 
+const getAllProductsByField = asyncHandler(async (req, res) => {
+  const { field, value } = req.body;
+
+  if (!field || !value) {
+    throw new ApiError(400, "Field and value are required");
+  }
+
+  const products = await Product.find({ [field]: value });
+
+  if (!products.length) {
+    throw new ApiError(400, "There are no products");
+  }
+
+  return res.status(200).send(
+    new ApiResponse(
+      200, // Status should match response code
+      products,
+      `Total ${products.length} products fetched successfully`
+    )
+  );
+});
+
 export {
   getAllProducts,
   getSingleProduct,
@@ -367,4 +394,5 @@ export {
   authDeleteProductById,
   authEditProduct,
   deleteAllProducts,
+  getAllProductsByField,
 };

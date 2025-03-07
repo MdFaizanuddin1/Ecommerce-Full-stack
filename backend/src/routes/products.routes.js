@@ -5,6 +5,7 @@ import {
   authEditProduct,
   deleteAllProducts,
   getAllProducts,
+  getAllProductsByField,
   getProductByQuery,
   getSingleProduct,
 } from "../controllers/products.controllers.js";
@@ -15,6 +16,7 @@ const router = Router();
 
 router.route("/getSingleProduct").get(getSingleProduct);
 router.route("/getAll").get(getAllProducts);
+router.route("/getField").post(getAllProductsByField);
 router.route("/get").get(getProductByQuery);
 
 // --------------- auth secured routes

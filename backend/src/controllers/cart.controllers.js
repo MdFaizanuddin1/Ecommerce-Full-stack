@@ -56,7 +56,11 @@ const getCartData = asyncHandler(async (req, res) => {
   );
 
   if (!cart) {
-    throw new ApiError(404, "Cart not found");
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, { items: [], totalPrice: 0 }, "Cart is empty")
+      );
   }
 
   res

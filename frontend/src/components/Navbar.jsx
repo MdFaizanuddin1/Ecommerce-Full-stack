@@ -43,7 +43,7 @@ export default function Navbar() {
             {["Men", "Women", "Bestseller"].map((item) => (
               <NavLink
                 key={item}
-                to={`/${item.toLowerCase()}`}
+                to={`/products/${item.toLowerCase()}`}
                 className="relative text-white hover:text-[#13AA52] transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#13AA52] after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
               >
                 {item}
@@ -107,7 +107,7 @@ export default function Navbar() {
         {["Men", "Women", "Bestseller"].map((item) => (
           <NavLink
             key={item}
-            to={`/${item.toLowerCase()}`}
+            to={`/products/${item.toLowerCase()}`}
             className="block text-white hover:text-[#13AA52] transition-all duration-300"
             onClick={() => setIsOpen(false)}
           >
