@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const images = [
-  { src: "/images/men shop.jpg", link: "/product/1", text: "Men's Collection" },
-  { src: "/images/kids shop.jpg", link: "/product/2", text: "Kids' Fashion" },
-  { src: "/images/women shop.jpg", link: "/product/3", text: "Women's Wear" },
-  { src: "/images/cycle shop.jpg", link: "/product/4", text: "Cycle Accessories" },
+  { src: "/images/men shop.jpg", link: "/products/men", text: "Men's Collection" },
+  { src: "/images/kids shop.jpg", link: "/products/kids", text: "Kids' Fashion" },
+  { src: "/images/women shop.jpg", link: "/products/women", text: "Women's Wear" },
+  { src: "/images/cycle shop.jpg", link: "/products/sports", text: "Cycle Accessories" },
 ];
 
 export default function HeroSection() {

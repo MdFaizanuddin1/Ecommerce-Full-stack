@@ -6,6 +6,7 @@ import {
   deleteWishList,
 } from "../redux/wishListSlice";
 import { Heart, Trash2, XCircle } from "lucide-react";
+import BestSellerComponent from "./products pages/BestSellerComponent";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -120,6 +121,7 @@ const Wishlist = () => {
             Your wishlist is empty. 💚
           </p>
         )}
+        <BestSellerComponent />
       </div>
     </div>
   );
