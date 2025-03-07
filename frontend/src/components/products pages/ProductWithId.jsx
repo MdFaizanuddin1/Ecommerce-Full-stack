@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../routes/routes";
 import { addToCart, getCartData, removeCartItem } from "../../redux/cartSlice";
-import { addToWishList, removeFromWishList } from "../../redux/wishListSlice";
+import {
+  addToWishList,
+  getAllWishLists,
+  removeFromWishList,
+} from "../../redux/wishListSlice";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -36,8 +40,8 @@ const ProductWithId = () => {
 
   useEffect(() => {
     dispatch(getCartData());
+    dispatch(getAllWishLists());
   }, [dispatch]);
-  
 
   // Fetch product details from API
   useEffect(() => {
@@ -67,7 +71,9 @@ const ProductWithId = () => {
 
   const handleAddToCart = () => {
     if (!currentUser) navigate("/login");
-    dispatch(addToCart({ productId: id, quantity: 1 })).then (()=>{dispatch (getCartData ())});
+    dispatch(addToCart({ productId: id, quantity: 1 })).then(() => {
+      dispatch(getCartData());
+    });
   };
 
   const handleRemoveFromCart = () => {

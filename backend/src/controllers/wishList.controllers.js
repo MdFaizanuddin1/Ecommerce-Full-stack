@@ -106,10 +106,14 @@ const deleteWishList = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error: userId and wishlist name are required");
   }
 
-  await WishList.findOneAndDelete({ userId, name });
+  const deletedWishList = await WishList.findOneAndDelete({ userId, name });
+
+  if(!deletedWishList) {
+    throw new ApiError (500, 'Failed to delete wishlist')
+  }
   res
     .status(200)
-    .send(new ApiResponse(200, null, "Wishlist deleted successfully"));
+    .send(new ApiResponse(200, deletedWishList, "Wishlist deleted successfully"));
 });
 
 // Get WishList by userId and name

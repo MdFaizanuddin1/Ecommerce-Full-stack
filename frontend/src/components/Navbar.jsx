@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userSlice";
-import { ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +30,14 @@ export default function Navbar() {
                 className="relative text-white hover:text-[#13AA52] transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#13AA52] after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
               >
                 <ShoppingCart size={24} />
+              </NavLink>
+            )}
+            {user && (
+              <NavLink
+                to={`/wish`}
+                className="relative text-white hover:text-[#13AA52] transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#13AA52] after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
+              >
+                <Heart size={24} />
               </NavLink>
             )}
             {["Men", "Women", "Bestseller"].map((item) => (
@@ -85,6 +93,15 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             <ShoppingCart size={24} />
+          </NavLink>
+        )}
+        {user && (
+          <NavLink
+            to={`/wish`}
+            className="block text-white hover:text-[#13AA52] transition-all duration-300"
+            onClick={() => setIsOpen(false)}
+          >
+            <Heart size={24} />
           </NavLink>
         )}
         {["Men", "Women", "Bestseller"].map((item) => (
