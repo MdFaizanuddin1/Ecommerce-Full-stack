@@ -62,10 +62,10 @@ const registerUser = asyncHandler(async (req, res) => {
     role,
     password,
     phone,
-  }
+  };
 
-  if(referredUser) {
-    userValues.referredBy = referredUser._id
+  if (referredUser) {
+    userValues.referredBy = referredUser._id;
   }
 
   const user = await User.create(userValues);
@@ -273,6 +273,54 @@ const getUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "user fetched successfully"));
 });
 
+const getReferredUsers = asyncHandler(async (req, res) => {
+  const userFromReq = req.user;
+  const user = await User.findById(userFromReq._id).select("-password");
+
+  if (!user) {
+    throw new ApiError(404, "You are not authorized");
+  }
+
+  const referredUsers = await User.aggregate([
+    {
+      $match: { _id: user._id }, // Match the logged-in user
+    },
+    {
+      $unwind: {
+        path: "$referredUsers",
+      },
+    },
+    {
+      $lookup: {
+        from: "users", // Lookup referred user details
+        localField: "referredUsers",
+        foreignField: "_id",
+        as: "referredUsers_details",
+      },
+    },
+    {
+      $addFields: {
+        refrredUserDetails: {
+          $arrayElemAt: ["$referredUsers_details", 0], // Extract first element
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        "refrredUserDetails.userName": 1,
+        "refrredUserDetails.email": 1,
+        "refrredUserDetails.createdAt": 1, // This is the join date
+      },
+    },
+  ]);
+
+  res.status(200).json({
+    success: true,
+    referredUsers,
+  });
+});
+
 export {
   registerUser,
   logInUser,
@@ -282,4 +330,5 @@ export {
   getUser,
   logOut,
   changePass,
+  getReferredUsers,
 };

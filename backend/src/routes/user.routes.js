@@ -7,6 +7,7 @@ import {
   logInUser,
   registerUser,
   refreshAccessToken,
+  getReferredUsers,
 } from "../controllers/user.controllers.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 
@@ -22,5 +23,6 @@ router.route("/getAllUsers").get(getAllUsers);
 router.route("/getUser").get(verifyToken, getUser);
 router.route("/logout").get(verifyToken, logOut);
 router.route("/changePass").post(verifyToken, changePass);
+router.route("/getReferred").get(verifyToken, getReferredUsers);
 
 export default router;
