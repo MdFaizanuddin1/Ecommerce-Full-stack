@@ -17,10 +17,10 @@ import { store } from "./app/store.js";
 import Signup from "./components/auth/SignUp.jsx";
 import Login from "./components/auth/Login.jsx";
 import HomePage from "./components/pages/HomePage.jsx";
-import ProductWithId from "./components/products pages/productWithId.jsx";
+import ProductWithId from "./components/productsPages/ProductWithId.jsx";
 import Cart from "./components/Cart.jsx";
 import Wishlist from "./components/Wishlist.jsx";
-import ProductWithField from "./components/products pages/ProductWithField.jsx";
+import ProductWithField from "./components/productsPages/ProductWithField.jsx";
 import ProfilePage from "./components/pages/Profile.jsx";
 
 const router = createBrowserRouter(

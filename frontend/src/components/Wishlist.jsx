@@ -6,7 +6,7 @@ import {
   deleteWishList,
 } from "../redux/wishListSlice";
 import { Heart, Trash2, XCircle } from "lucide-react";
-import BestSellerComponent from "./products pages/BestSellerComponent";
+import BestSellerComponent from "./productsPages/BestSellerComponent";
 
 const Wishlist = () => {
   const dispatch = useDispatch();

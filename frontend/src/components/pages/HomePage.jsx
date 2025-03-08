@@ -1,5 +1,5 @@
 import React from "react";
-import ProductPage from "../products pages/ProductPage";
+import ProductPage from "../productsPages/ProductPage";
 import HeroSection from "./HeroSection";
 
 function HomePage() {

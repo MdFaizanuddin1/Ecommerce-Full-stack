@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartData, removeCartItem, clearCart } from "../redux/cartSlice";
 import { Trash2 } from "lucide-react";
-import BestSellerComponent from "./products pages/BestSellerComponent";
+import BestSellerComponent from "./productsPages/BestSellerComponent";
 
 const Cart = () => {
   const dispatch = useDispatch();
