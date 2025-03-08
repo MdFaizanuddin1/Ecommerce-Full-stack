@@ -21,6 +21,7 @@ import ProductWithId from "./components/products pages/productWithId.jsx";
 import Cart from "./components/Cart.jsx";
 import Wishlist from "./components/Wishlist.jsx";
 import ProductWithField from "./components/products pages/ProductWithField.jsx";
+import ProfilePage from "./components/pages/Profile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="" element={<HomePage />} />
       <Route path="signup" element={<Signup />} />
       <Route path="login" element={<Login />} />
+      <Route path="profile" element={<ProfilePage />} />
 
       {/* product pages */}
       <Route path="product/:id" element={<ProductWithId />} />
