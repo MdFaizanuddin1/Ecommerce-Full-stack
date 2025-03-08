@@ -7,10 +7,19 @@ import {
 } from "../redux/wishListSlice";
 import { Heart, Trash2, XCircle } from "lucide-react";
 import BestSellerComponent from "./productsPages/BestSellerComponent";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { wishLists, loading } = useSelector((state) => state.wishlist);
+  const { currentUser } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     dispatch(getAllWishLists());

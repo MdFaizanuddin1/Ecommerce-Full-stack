@@ -3,10 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData, removeCartItem, clearCart } from "../redux/cartSlice";
 import { Trash2 } from "lucide-react";
 import BestSellerComponent from "./productsPages/BestSellerComponent";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems, totalPrice, loading } = useSelector((state) => state.cart);
+  const { currentUser } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     dispatch(getCartData());
