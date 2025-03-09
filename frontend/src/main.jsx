@@ -22,6 +22,7 @@ import Cart from "./components/Cart.jsx";
 import Wishlist from "./components/Wishlist.jsx";
 import ProductWithField from "./components/productsPages/ProductWithField.jsx";
 import ProfilePage from "./components/pages/Profile.jsx";
+import SearchPage from "./components/productsPages/SearchPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       {/* product pages */}
       <Route path="product/:id" element={<ProductWithId />} />
       <Route path="products/:category" element={<ProductWithField />} />
+      <Route path="/search" element={<SearchPage />} />
 
       {/* cart component */}
       <Route path="cart" element={<Cart />} />

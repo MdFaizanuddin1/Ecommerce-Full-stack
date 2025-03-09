@@ -140,18 +140,36 @@
 // }
 
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userSlice";
-import { Heart, ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart, User, Search, Menu } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
 
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     dispatch(logout());
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    navigate(`/search?name=${searchQuery}`);
+  };
+
+  const handleSearchIconClick = () => {
+    if (searchVisible && searchQuery.trim()) {
+      handleSearch(new Event("submit")); // Simulate form submission
+    } else {
+      setSearchVisible(!searchVisible);
+    }
   };
 
   return (
@@ -165,6 +183,30 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
+            {/* Search Bar */}
+            <div className="hidden md:flex items-center gap-4">
+              {searchVisible && (
+                <form
+                  onSubmit={handleSearch}
+                  className="flex items-center gap-2"
+                >
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="text-gray-300 outline p-2 rounded-lg"
+                  />
+                </form>
+              )}
+              <button
+                className="p-2 text-white hover:text-[#13AA52]"
+                onClick={handleSearchIconClick}
+              >
+                <Search size={24} />
+              </button>
+            </div>
+
             {user && (
               <NavLink
                 to={`/cart`}
@@ -217,13 +259,33 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile: Search Input, Search Icon, and Menu Icon in One Row */}
+          <div className="md:hidden flex items-center gap-2">
+            {/* Search Input (Before Icon) */}
+            {searchVisible && (
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="p-1 rounded-md w-32 outline text-gray-300"
+              />
+            )}
+
+            {/* Search Icon */}
+            <button
+              className="p-2 text-white hover:text-[#13AA52]"
+              onClick={handleSearchIconClick}
+            >
+              <Search size={24} />
+            </button>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white text-3xl focus:outline-none transition-transform transform hover:scale-110"
             >
-              ☰
+              <Menu size={24} />
             </button>
           </div>
         </div>

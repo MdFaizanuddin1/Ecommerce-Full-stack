@@ -59,13 +59,21 @@ const getProductByQuery = async (req, res) => {
   try {
     // Find products that start with the query
     const products = await Product.find({
-      productName: { $regex: `^${name}`, $options: "i" }, // Case insensitive match
+      productName: { $regex: name, $options: "i" }, // Case insensitive match
     });
 
-    return res.json(products);
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          products,
+          "Product with query fetched successfully"
+        )
+      );
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json(new ApiError(500, "Internal server Error"));
   }
 };
 

@@ -33,43 +33,45 @@ const BestSellerComponent = () => {
   }, [category]);
 
   return (
-    <div className="mt-8 p-4 bg-[#F5FAF5] rounded-lg shadow-md border border-green-300">
-      <h2 className="text-xl font-bold text-green-700 border-b border-green-400 pb-2 text-center">
+    <div className="p-4">
+      <h2 className="text-2xl font-bold text-green-700 border-b border-green-400 pb-2 text-center">
         🔥 Bestsellers You May Like
       </h2>
 
       {loading ? (
-        <p className="text-center text-green-500">Loading products...</p>
+        <p className="text-center text-green-500 mt-4">Loading products...</p>
       ) : error ? (
-        <p className="text-center text-red-500">{error}</p>
+        <p className="text-center text-red-500 mt-4">{error}</p>
       ) : products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {products.map((product) => (
             <div
               key={product._id}
-              className="bg-white p-3 rounded-lg flex flex-col items-center text-center shadow-sm border border-green-200 cursor-pointer 
-                           hover:scale-105 hover:shadow-lg hover:border-green-400 transition-all duration-300"
+              className="border p-4 rounded-lg shadow-md cursor-pointer hover:shadow-xl hover:scale-105 transition-transform duration-200"
               onClick={() => navigate(`/product/${product._id}`)}
             >
               <img
                 src={product.image[0]}
                 alt={product.productName}
-                className="w-24 h-24 object-cover rounded-lg border border-green-300 shadow-sm"
+                className="w-full h-40 object-cover rounded"
               />
-              <h3 className="text-sm font-semibold text-green-700 mt-2">
+              <h3 className="text-lg font-semibold mt-2">
                 {product.productName}
               </h3>
-              <p className="text-xs text-green-700">
-                💰 Price:{" "}
-                <span className="text-green-900 font-bold">
-                  ₹{product.price}
+              <p className="text-gray-600">Price: ₹{product.price}</p>
+              {product.bestseller && (
+                <span className="text-sm text-white bg-green-500 px-2 py-1 rounded-full mt-2 inline-block">
+                  🔥 Bestseller
                 </span>
+              )}
+              <p className="text-gray-700 text-sm mt-2">
+                {product.description}
               </p>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-center text-green-700 mt-2">
+        <p className="text-center text-gray-600 mt-4">
           No bestsellers found. 🛍
         </p>
       )}
