@@ -4,7 +4,7 @@ import { getCurrentUser, logout } from "../../redux/userSlice";
 import axios from "axios";
 import { BASE_URL } from "../../routes/routes";
 import { useNavigate } from "react-router-dom";
-import { Heart, ShoppingCart, LogOut } from "lucide-react";
+import { Heart, ShoppingCart, LogOut, LayoutDashboard } from "lucide-react";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -129,6 +129,17 @@ const ProfilePage = () => {
 
       {/* Buttons Section */}
       <div className="flex gap-6 mt-6">
+        {currentUser?.data?.role === "admin" && (
+          <button
+            className="p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-transform relative group"
+            onClick={() => navigate("/admin-dashboard")}
+          >
+            <LayoutDashboard size={28} className="text-blue-500" />
+            <span className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              Dashboard
+            </span>
+          </button>
+        )}
         <button
           className="p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-transform relative group"
           onClick={() => navigate("/wish")}

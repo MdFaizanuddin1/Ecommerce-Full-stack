@@ -23,6 +23,7 @@ import Wishlist from "./components/Wishlist.jsx";
 import ProductWithField from "./components/productsPages/ProductWithField.jsx";
 import ProfilePage from "./components/pages/Profile.jsx";
 import SearchPage from "./components/productsPages/SearchPage.jsx";
+import AdminDashboard from "./components/admin/AdminDashboard.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="signup" element={<Signup />} />
       <Route path="login" element={<Login />} />
       <Route path="profile" element={<ProfilePage />} />
+      <Route path="admin-dashboard" element={<AdminDashboard />} />
 
       {/* product pages */}
       <Route path="product/:id" element={<ProductWithId />} />

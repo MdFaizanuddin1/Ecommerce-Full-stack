@@ -200,7 +200,7 @@ const authAddProduct = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  const {
+  let {
     productName,
     price,
     category,
@@ -211,6 +211,10 @@ const authAddProduct = asyncHandler(async (req, res) => {
     stock,
     barcodeNumber,
   } = req.body;
+
+  stock = Number(stock);
+  barcodeNumber = Number(barcodeNumber);
+  price = Number(price);
 
   // Validate required fields
   const requiredFields = [

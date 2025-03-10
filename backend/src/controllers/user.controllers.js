@@ -28,7 +28,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const options = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "None",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
   path: "/", // ✅ Ensures the cookie is accessible across all routes
   // maxAge: 24 * 60 * 60 * 1000 * 10, // 10day
 };
