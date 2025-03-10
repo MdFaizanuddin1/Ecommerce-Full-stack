@@ -12,11 +12,20 @@ import {
   deleteCategory,
   updateCategory,
 } from "../../redux/categorySlice";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { products } = useSelector((state) => state.products);
   const { categories } = useSelector((state) => state.category);
+  const { currentUser } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!currentUser || currentUser?.data?.role !== "admin") {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   const [newProduct, setNewProduct] = useState({
     productName: "",
