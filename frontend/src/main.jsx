@@ -24,6 +24,9 @@ import ProductWithField from "./components/productsPages/ProductWithField.jsx";
 import ProfilePage from "./components/pages/Profile.jsx";
 import SearchPage from "./components/productsPages/SearchPage.jsx";
 import AdminDashboard from "./components/admin/AdminDashboard.jsx";
+import OrderPage from "./components/pages/OrderPage.jsx";
+import OrderDetails from "./components/pages/OrderDetails.jsx";
+import AdminOrderDetails from "./components/admin/AdminOrderDetails.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +47,9 @@ const router = createBrowserRouter(
 
       {/* wishlist component */}
       <Route path="wish" element={<Wishlist />} />
+      <Route path="order/:productId" element={<OrderPage />} />
+      <Route path="order-details" element={<OrderDetails />} />
+      <Route path="admin-order-details" element={<AdminOrderDetails />} />
     </Route>
   )
 );

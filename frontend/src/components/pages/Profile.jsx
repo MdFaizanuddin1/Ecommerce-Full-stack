@@ -4,7 +4,7 @@ import { getCurrentUser, logout } from "../../redux/userSlice";
 import axios from "axios";
 import { BASE_URL } from "../../routes/routes";
 import { useNavigate } from "react-router-dom";
-import { Heart, ShoppingCart, LogOut, LayoutDashboard } from "lucide-react";
+import { Heart, ShoppingCart, LogOut, LayoutDashboard, Package } from "lucide-react";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -158,6 +158,17 @@ const ProfilePage = () => {
             Cart
           </span>
         </button>
+
+        <button
+          className="p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-transform relative group"
+          onClick={()=> navigate ('/order-details')} // Replace with your function
+        >
+          <Package size={28} className="text-blue-500" />
+          <span className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+            Orders
+          </span>
+        </button>
+
         <button
           className="p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-transform relative group"
           onClick={handleLogout}

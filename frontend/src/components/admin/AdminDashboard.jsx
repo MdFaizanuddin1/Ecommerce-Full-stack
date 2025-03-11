@@ -13,6 +13,7 @@ import {
   updateCategory,
 } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
+import { Package } from "lucide-react";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -119,6 +120,15 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold mb-6 text-green-400">
         Admin Dashboard
       </h1>
+      <button
+        className="p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-transform relative group m-2"
+        onClick={() => navigate("/admin-order-details")} // Replace with your function
+      >
+        <Package size={28} className="text-blue-500" />
+        <span className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+          Get Orders Details
+        </span>
+      </button>
 
       {/* Create Product Form */}
       <form

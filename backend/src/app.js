@@ -35,6 +35,8 @@ import categoryRouter from "./routes/category.routes.js";
 // import salesSummaryRouter from "./routes/sales/salesSummary.routes.js";
 
 import inventoryRouter from "./routes/inventory.routes.js";
+
+import ordersRazor from "./routes/orders.routes.js";
 import { ApiError } from "./utils/apiError.js";
 
 // routes
@@ -54,6 +56,8 @@ app.use("/api/v1/review", reviewRouter);
 app.use("/api/v1/address", addressRouter);
 // category route
 app.use("/api/v1/category", categoryRouter);
+// orders route
+app.use("/api/v1/order", ordersRazor);
 
 //-------------sales
 
