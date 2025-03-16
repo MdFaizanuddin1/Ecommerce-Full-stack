@@ -37,6 +37,7 @@ import categoryRouter from "./routes/category.routes.js";
 import inventoryRouter from "./routes/inventory.routes.js";
 
 import ordersRazor from "./routes/orders.routes.js";
+import aiRouter from "./routes/ai/geminiAi.routes.js";
 import { ApiError } from "./utils/apiError.js";
 
 // routes
@@ -69,6 +70,9 @@ app.use("/api/v1/inventory", inventoryRouter);
 
 // --------- summary
 // app.use("/api/v1/report", salesSummaryRouter);
+
+//---------- ai routes
+app.use("/api/v1/ai", aiRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack); // Log for debugging

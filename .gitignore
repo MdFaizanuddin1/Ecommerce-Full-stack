@@ -9,4 +9,3 @@ backend/public/temp
 backend/src/controllers/sales/bill.controllers.js
 backend/src/controllers/sales/salesSummary.controller.js
 backend/src/models/sales/bill.modles.js
-hi
