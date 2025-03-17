@@ -16,6 +16,7 @@ import {
   FaHeart,
   FaTrash,
 } from "react-icons/fa";
+import AIAssistant from "../AiAssitant";
 
 const ProductWithId = () => {
   const { id } = useParams();
@@ -283,6 +284,7 @@ const ProductWithId = () => {
           )}
         </div>
       </div>
+      <AIAssistant product={product} />
     </div>
   );
 };

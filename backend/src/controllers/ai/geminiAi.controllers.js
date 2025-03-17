@@ -22,6 +22,7 @@ const interactWithAi = asyncHandler(async (req, res) => {
           .join("\n");
     }
     const response = await run(prompt, productContext);
+    if (!response) throw new ApiError(500, "Error from gemini");
 
     return res
       .status(200)

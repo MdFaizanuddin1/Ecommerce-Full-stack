@@ -4,6 +4,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
 import { BASE_URL } from "../../routes/routes";
+import AIAssistant from "../AiAssitant";
 
 export default function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -38,13 +39,17 @@ export default function ProductPage() {
             <p className="text-lg text-green-600 font-bold">₹{product.price}</p>
             <p className="text-lg text-gray-800">{product.description} ...</p>
             <div className="flex justify-between mt-6">
-              <button onClick={()=> navigate (`/order/${product._id}`)} className="flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-500 transition-transform transform hover:scale-105">
+              <button
+                onClick={() => navigate(`/order/${product._id}`)}
+                className="flex items-center bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-500 transition-transform transform hover:scale-105"
+              >
                 <FaEye className="mr-2" /> Buy Now
               </button>
             </div>
           </motion.div>
         ))}
       </div>
+      <AIAssistant products={products} />
     </div>
   );
 }
