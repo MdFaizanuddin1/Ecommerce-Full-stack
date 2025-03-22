@@ -17,6 +17,9 @@ export default function ProductPage() {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
+  console.log('products is',products)
+  if(!products || products.length === 0) return <div className=" px-4 py-8 text-3xl font-bold">Loading...</div>
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Our Products</h1>
